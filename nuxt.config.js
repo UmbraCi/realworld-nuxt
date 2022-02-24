@@ -3,6 +3,7 @@
  */
 export default {
     router: {
+      linkActiveClass: 'active',
       extendRoutes(routes, resolve) {
           //清除Nuxt.js 基于目录默认生成的路由表
           routes.splice(0)
