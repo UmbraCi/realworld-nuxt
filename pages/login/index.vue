@@ -41,6 +41,7 @@
 
 <script>
 import {login,register} from '@/api/user'
+const Cookie = process.client ? require('js-cookie') : undefined
 export default {
     name:'LoginIndex',
     data() {
@@ -64,6 +65,9 @@ export default {
             let submitFn = this.isLogin ? login : register
             try {
                 let {data} = await submitFn({user:this.user})
+                this.$store.commit('setUser',data.user)
+                Cookie.set('auth', JSON.stringify(data.user))
+                this.$router.push({path:'/'})
             } catch (error) {
                 console.dir(error)
                 this.errors = error.response.data.errors
