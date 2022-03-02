@@ -14,7 +14,9 @@
               Home  
             </nuxt-link>
           </li>
-          <li class="nav-item">
+
+          <template v-if="user">
+            <li class="nav-item">
             <nuxt-link class="nav-link" to="/editor">
               <i class="ion-compose"></i>&nbsp;New Article  
             </nuxt-link>
@@ -25,6 +27,17 @@
             </nuxt-link>
           </li>
           <li class="nav-item">
+            <nuxt-link class="nav-link" to="/profile/:123">
+              <img class="user-pic" :src="user.image">
+              {{user.username}}
+            </nuxt-link>
+          </li>
+          </template>
+          
+
+
+          <template v-else>
+            <li class="nav-item">
             <nuxt-link class="nav-link" to="/login">
               Sign in
             </nuxt-link>
@@ -34,13 +47,10 @@
               Sign up
             </nuxt-link>
           </li>
+          </template>
+          
 
-          <li class="nav-item">
-            <nuxt-link class="nav-link" to="/profile/:123">
-              <img class="user-pic" src="https://api.realworld.io/images/smiley-cyrus.jpeg">
-              umbraciCC
-            </nuxt-link>
-          </li>
+          
         </ul>
       </div>
     </nav>
@@ -62,7 +72,11 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
-    name:'LayoutIndex'
+    name:'LayoutIndex',
+    computed:{
+      ...mapState(['user'])
+    }
 };
 </script>

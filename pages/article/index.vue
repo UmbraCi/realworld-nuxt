@@ -122,7 +122,10 @@
 </div>
 </template>
 <script>
+
 export default {
-    name:'ArticleIndex'
+    middleware: 'authenticated',
+    name:'ArticleIndex',
+    
 }
 </script>
