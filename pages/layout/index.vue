@@ -10,7 +10,7 @@
         <ul class="nav navbar-nav pull-xs-right">
           <li class="nav-item">
             <!-- Add "active" class when you're on that page" -->
-            <nuxt-link class="nav-link active" to="/">
+            <nuxt-link class="nav-link" exact to="/">
               Home  
             </nuxt-link>
           </li>
@@ -26,12 +26,12 @@
           </li>
           <li class="nav-item">
             <nuxt-link class="nav-link" to="/login">
-              <a class="nav-link" href="">Sign in</a>
+              Sign in
             </nuxt-link>
           </li>
           <li class="nav-item">
             <nuxt-link class="nav-link" to="/register">
-              <a class="nav-link" href="">Sign up</a>
+              Sign up
             </nuxt-link>
           </li>
 

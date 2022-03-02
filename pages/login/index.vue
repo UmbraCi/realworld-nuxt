@@ -12,18 +12,21 @@
                 </p>
 
                 <ul class="error-messages">
-                    <li>That email is already taken</li>
+                    <template v-for="(value,name) in errors">
+                        <li v-for="(item, index) in value" :key="index">{{name}}{{item}}</li>
+                    </template>
+                    
                 </ul>
 
-                <form>
+                <form @submit.prevent="onSubmit">
                     <fieldset class="form-group">
-                        <input v-if="!isLogin" class="form-control form-control-lg" type="text" placeholder="Your Name">
+                        <input v-if="!isLogin" v-model="user.username" class="form-control form-control-lg" type="text" placeholder="Your Name" required>
                     </fieldset>
                     <fieldset class="form-group">
-                        <input class="form-control form-control-lg" type="text" placeholder="Email">
+                        <input class="form-control form-control-lg" v-model="user.email" type="email" placeholder="Email" required>
                     </fieldset>
                     <fieldset class="form-group">
-                        <input class="form-control form-control-lg" type="password" placeholder="Password">
+                        <input class="form-control form-control-lg" v-model="user.password" type="password" placeholder="Password">
                     </fieldset>
                     <button class="btn btn-lg btn-primary pull-xs-right">
                         {{isLogin ? 'Sign in' : 'Sign up'}}
@@ -37,11 +40,34 @@
 </template>
 
 <script>
+import {login,register} from '@/api/user'
 export default {
     name:'LoginIndex',
+    data() {
+        return {
+            "user": {
+                "username":'',
+                "email": "",
+                "password": ""
+            },
+            errors:{},       //错误信息
+        }
+    },
     computed:{
         isLogin(){
             return this.$route.name === 'login'
+        }
+    },
+    methods:{
+        //提交
+        async onSubmit(){
+            let submitFn = this.isLogin ? login : register
+            try {
+                let {data} = await submitFn({user:this.user})
+            } catch (error) {
+                console.dir(error)
+                this.errors = error.response.data.errors
+            }
         }
     }
 }

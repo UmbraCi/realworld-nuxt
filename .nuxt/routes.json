@@ -6,46 +6,38 @@
       {
         "path": "",
         "name": "home",
-        "component": "F:\\\\web-advance\\\\realworld-nuxtjs\\\\pages\\\\home\\\\index.vue",
-        "_name": "_3f3d72ea"
+        "component": "F:\\\\web-advance\\\\realworld-nuxtjs\\\\pages\\\\home\\\\index.vue"
       },
       {
         "path": "login",
         "name": "login",
-        "component": "F:\\\\web-advance\\\\realworld-nuxtjs\\\\pages\\\\login\\\\index.vue",
-        "_name": "_1bc0a201"
+        "component": "F:\\\\web-advance\\\\realworld-nuxtjs\\\\pages\\\\login\\\\index.vue"
       },
       {
         "path": "register",
         "name": "register",
-        "component": "F:\\\\web-advance\\\\realworld-nuxtjs\\\\pages\\\\login\\\\index.vue",
-        "_name": "_1bc0a201"
+        "component": "F:\\\\web-advance\\\\realworld-nuxtjs\\\\pages\\\\login\\\\index.vue"
       },
       {
         "path": "/profile/:username",
         "name": "profile",
-        "component": "F:\\\\web-advance\\\\realworld-nuxtjs\\\\pages\\\\profile\\\\index.vue",
-        "_name": "_00d017c1"
+        "component": "F:\\\\web-advance\\\\realworld-nuxtjs\\\\pages\\\\profile\\\\index.vue"
       },
       {
         "path": "/setting",
         "name": "setting",
-        "component": "F:\\\\web-advance\\\\realworld-nuxtjs\\\\pages\\\\setting\\\\index.vue",
-        "_name": "_7427f4ba"
+        "component": "F:\\\\web-advance\\\\realworld-nuxtjs\\\\pages\\\\setting\\\\index.vue"
       },
       {
         "path": "/editor",
         "name": "editor",
-        "component": "F:\\\\web-advance\\\\realworld-nuxtjs\\\\pages\\\\editor\\\\index.vue",
-        "_name": "_326b4586"
+        "component": "F:\\\\web-advance\\\\realworld-nuxtjs\\\\pages\\\\editor\\\\index.vue"
       },
       {
         "path": "/article/:slug",
         "name": "article",
-        "component": "F:\\\\web-advance\\\\realworld-nuxtjs\\\\pages\\\\article\\\\index.vue",
-        "_name": "_b3069b58"
+        "component": "F:\\\\web-advance\\\\realworld-nuxtjs\\\\pages\\\\article\\\\index.vue"
       }
-    ],
-    "_name": "_5190fb60"
+    ]
   }
 ]
