@@ -12,11 +12,39 @@
         <div class="col-md-9">
           <div class="feed-toggle">
             <ul class="nav nav-pills outline-active">
-              <li class="nav-item">
-                <a class="nav-link disabled" href="">Your Feed</a>
+              <li v-if="user" class="nav-item">
+                <nuxt-link class="nav-link" 
+                :class="{active:tab=='your_feed'}"
+                exact
+                :to="{
+                  name:'home',
+                  query:{
+                    tab:'your_feed'
+                  }
+                }">Your Feed</nuxt-link>
               </li>
               <li class="nav-item">
-                <a class="nav-link active" href="">Global Feed</a>
+                <nuxt-link class="nav-link"
+                :class="{active:tab=='global_fee'}"
+                exact
+                :to="{
+                  name:'home',
+                  query:{
+                    tab:'global_fee'
+                  }
+                }">Global Fee</nuxt-link>
+              </li>
+              <li v-if="tag" class="nav-item">
+                <nuxt-link class="nav-link"
+                :class="{active:tab=='tag'}"
+                exact
+                :to="{
+                  name:'home',
+                  query:{
+                    tab:'tag',
+                    tag:tag
+                  }
+                }">#{{tag}}</nuxt-link>
               </li>
             </ul>
           </div>
@@ -85,13 +113,14 @@
                 :to="{
                   name: 'home',
                   query: {
-                    tag: tag,
+                    tag: item,
+                    tab:'tag'
                   },
                 }"
-                v-for="tag in tags"
-                :key="tag"
+                v-for="item in tags"
+                :key="item"
               >
-                {{ tag }}
+                {{ item }}
               </nuxt-link>
             </div>
           </div>
@@ -104,18 +133,20 @@
 <script>
 import { getArticles } from "@/api/article";
 import { getTags } from "@/api/tag";
+import { mapState } from "vuex";
 export default {
   middleware: "authenticated",
   name: "HomeIndex",
-  watchQuery:['tag'],
+  watchQuery: ["tag","tab"],
   async asyncData({ query }) {
+    const { tag } = query;
     const limit = 2;
     const page = Number.parseInt(query.page || 1);
     const [articleRes, TagRes] = await Promise.all([
       getArticles({
         limit,
         offset: (page - 1) * limit,
-        tag:query.tag
+        tag: query.tag,
       }),
       getTags(),
     ]);
@@ -133,7 +164,12 @@ export default {
       articles,
       articlesCount,
       tags,
+      tag, //query 路由的tag
+      tab: query.tab || 'global_fee'    //选中的标签
     };
+  },
+  computed: {
+    ...mapState(["user"]),
   },
 };
 </script>
