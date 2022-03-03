@@ -80,14 +80,19 @@
             <p>Popular Tags</p>
 
             <div class="tag-list">
-              <a href="" class="tag-pill tag-default">programming</a>
-              <a href="" class="tag-pill tag-default">javascript</a>
-              <a href="" class="tag-pill tag-default">emberjs</a>
-              <a href="" class="tag-pill tag-default">angularjs</a>
-              <a href="" class="tag-pill tag-default">react</a>
-              <a href="" class="tag-pill tag-default">mean</a>
-              <a href="" class="tag-pill tag-default">node</a>
-              <a href="" class="tag-pill tag-default">rails</a>
+              <nuxt-link
+                class="tag-pill tag-default"
+                :to="{
+                  name: 'home',
+                  query: {
+                    tag: tag,
+                  },
+                }"
+                v-for="tag in tags"
+                :key="tag"
+              >
+                {{ tag }}
+              </nuxt-link>
             </div>
           </div>
         </div>
@@ -98,19 +103,36 @@
 
 <script>
 import { getArticles } from "@/api/article";
+import { getTags } from "@/api/tag";
 export default {
   middleware: "authenticated",
   name: "HomeIndex",
+  watchQuery:['tag'],
   async asyncData({ query }) {
     const limit = 2;
     const page = Number.parseInt(query.page || 1);
-    const { data } = await getArticles({
-      limit,
-      offset: (page - 1) * limit,
-    });
+    const [articleRes, TagRes] = await Promise.all([
+      getArticles({
+        limit,
+        offset: (page - 1) * limit,
+        tag:query.tag
+      }),
+      getTags(),
+    ]);
+    // const { data } = await getArticles({
+    //   limit,
+    //   offset: (page - 1) * limit,
+    // });
+    // const {data : tagData} = await getTags()
+    const { articles, articlesCount } = articleRes.data;
+    const { tags } = TagRes.data;
     return {
-      articles: data.articles,
-      articlesCount: data.articlesCount,
+      // articles: data.articles,
+      // articlesCount: data.articlesCount,
+      // tags:tagData.tags
+      articles,
+      articlesCount,
+      tags,
     };
   },
 };
