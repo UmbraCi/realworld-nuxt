@@ -131,19 +131,21 @@
 </template>
 
 <script>
-import { getArticles } from "@/api/article";
+import { getArticles,getFeedArticles } from "@/api/article";
 import { getTags } from "@/api/tag";
 import { mapState } from "vuex";
 export default {
   middleware: "authenticated",
   name: "HomeIndex",
   watchQuery: ["tag","tab"],
-  async asyncData({ query }) {
+  async asyncData({ query ,store}) {
     const { tag } = query;
     const limit = 2;
     const page = Number.parseInt(query.page || 1);
+    const tab = query.tab || 'global_fee' //选中的标签
+    const loaderArticles = store.state.user && tab == 'your_feed' ? getFeedArticles : getArticles
     const [articleRes, TagRes] = await Promise.all([
-      getArticles({
+      loaderArticles({
         limit,
         offset: (page - 1) * limit,
         tag: query.tag,
@@ -165,7 +167,7 @@ export default {
       articlesCount,
       tags,
       tag, //query 路由的tag
-      tab: query.tab || 'global_fee'    //选中的标签
+      tab
     };
   },
   computed: {

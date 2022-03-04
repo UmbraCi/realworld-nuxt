@@ -51,5 +51,9 @@ export default {
              }
           ])
       }
-    }
+    },
+    //注册插件
+    plugins:[
+      '~plugins/request.js'
+    ]
   }
