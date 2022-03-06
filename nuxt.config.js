@@ -54,6 +54,7 @@ export default {
     },
     //注册插件
     plugins:[
-      '~plugins/request.js'
+      '~plugins/request.js',
+      '~plugins/dayjs.js'
     ]
   }

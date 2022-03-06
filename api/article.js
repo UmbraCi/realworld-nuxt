@@ -16,3 +16,21 @@ export const getFeedArticles = (params)=>{
         params
     })
 }
+
+//点赞
+export const addFavorite = (slug)=>{
+    return request({
+        method:'POST',
+        url:'/articles/${slug}/favorite',
+        params
+    })
+}
+
+//取消点赞
+export const deleteFavorite = (slug)=>{
+    return request({
+        method:'DELETE',
+        url:'/articles/${slug}/favorite',
+        params
+    })
+}
