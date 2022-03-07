@@ -7,24 +7,7 @@
 
             <h1>{{article.title}}</h1>
 
-            <div class="article-meta">
-                <a href=""><img src="http://i.imgur.com/Qr71crq.jpg"/></a>
-                <div class="info">
-                    <a href="" class="author">Eric Simons</a>
-                    <span class="date">January 20th</span>
-                </div>
-                <button class="btn btn-sm btn-outline-secondary">
-                    <i class="ion-plus-round"></i>
-                    &nbsp;
-                    Follow Eric Simons <span class="counter">(10)</span>
-                </button>
-                &nbsp;&nbsp;
-                <button class="btn btn-sm btn-outline-primary">
-                    <i class="ion-heart"></i>
-                    &nbsp;
-                    Favorite Post <span class="counter">(29)</span>
-                </button>
-            </div>
+            <ArticleMeta :article="article" />
 
         </div>
     </div>
@@ -33,33 +16,13 @@
 
         <div class="row article-content">
             <div class="col-md-12" v-html="article.body">
-                <!-- <h2 id="introducing-ionic">Introducing RealWorld.</h2>
-                <p>It's a great solution for learning how other frameworks work.</p> -->
             </div>
         </div>
 
         <hr/>
 
         <div class="article-actions">
-            <div class="article-meta">
-                <a href="profile.html"><img src="http://i.imgur.com/Qr71crq.jpg"/></a>
-                <div class="info">
-                    <a href="" class="author">Eric Simons</a>
-                    <span class="date">January 20th</span>
-                </div>
-
-                <button class="btn btn-sm btn-outline-secondary">
-                    <i class="ion-plus-round"></i>
-                    &nbsp;
-                    Follow Eric Simons
-                </button>
-                &nbsp;
-                <button class="btn btn-sm btn-outline-primary">
-                    <i class="ion-heart"></i>
-                    &nbsp;
-                    Favorite Post <span class="counter">(29)</span>
-                </button>
-            </div>
+           <ArticleMeta :article="article" />
         </div>
 
         <div class="row">
@@ -121,9 +84,13 @@
 <script>
 import {getArticle} from '@/api/article'
 import MarkdownIt from 'markdown-it'
+import ArticleMeta from './components/article-meta.vue'
 export default {
     middleware: 'authenticated',
     name:'ArticleIndex',
+    components:{
+        ArticleMeta
+    },
     async asyncData({isDev, route, store, env, params, query, req, res, redirect, error}) {
         const {data} = await getArticle(params.slug)
         const {article} = data
@@ -133,5 +100,17 @@ export default {
             article :article
         }
     },
+    head() {
+      return {
+        title: `${this.article.title} --RealWorld`,
+        meta: [
+          {
+            hid: 'description',
+            name: 'description',
+            content: this.article.description
+          }
+        ]
+      }
+    }
 }
 </script>
