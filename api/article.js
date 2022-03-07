@@ -21,8 +21,7 @@ export const getFeedArticles = (params)=>{
 export const addFavorite = (slug)=>{
     return request({
         method:'POST',
-        url:'/articles/${slug}/favorite',
-        params
+        url:`/articles/${slug}/favorite`,
     })
 }
 
@@ -30,7 +29,14 @@ export const addFavorite = (slug)=>{
 export const deleteFavorite = (slug)=>{
     return request({
         method:'DELETE',
-        url:'/articles/${slug}/favorite',
-        params
+        url:`/articles/${slug}/favorite`,
+    })
+}
+
+//获取文章详情
+export const getArticle = (slug)=>{
+    return request({
+        method:'GET',
+        url:`/articles/${slug}`,
     })
 }
