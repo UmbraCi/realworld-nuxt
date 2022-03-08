@@ -56,5 +56,9 @@ export default {
     plugins:[
       '~plugins/request.js',
       '~plugins/dayjs.js'
-    ]
+    ],
+    server:{
+      host:'0.0.0.0',
+      port:3000
+    }
   }
